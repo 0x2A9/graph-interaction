@@ -1,9 +1,9 @@
 BIN = graph
 
-.PHONY: all clean
+.PHONY: run clean
 
-all: 
-	make clean && make $(BIN) && ./$(BIN)
+run: 
+	make $(BIN) && ./$(BIN)
 
 $(BIN): main.c graph.c utils.c coloring.c 
 	gcc main.c \
