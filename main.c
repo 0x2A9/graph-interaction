@@ -6,8 +6,21 @@
 
 int main(void)
 {
-    struct Graph* graph = create_graph(7);
-    printf("%d\n", (*graph).vertices_amount);
+    int va = 7;
+    struct Graph* graph = create_graph(va);
 
-    delete_graph(graph);
+    printf("%d\n", graph->vertices_amount);
+
+    int **r = graph->relations;
+
+    graph_add_relation(graph, 5, 3);
+
+    for (int i = 0; i < va; i++) {
+        for (int j = 0; j < va; j++) {
+            printf("%d ",  *( *(r + i) + j));
+        }
+        printf("\n");
+    }
+
+    graph_delete(graph);
 }

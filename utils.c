@@ -7,31 +7,14 @@
 
 int** create_matrix(int n)
 {
-    int *(*matrix);	
-    int *arr[n]; 
+    int** matrix = (int**)malloc(n * sizeof(int*));
+    for (int i = 0; i < n; i++)
+        matrix[i] = (int*)malloc(n * sizeof(int));
 
-    for (int i = 0; i < n; i++) {
-        arr[i] = (int *)malloc(n * sizeof(int));
-
-        if (arr[i] == NULL) {
-            printf("Memory allocation failed\n");
-            exit(1);
-        }
-
-        memset(arr, 0, sizeof *arr * n);
-    }
-
-    matrix = (int **)malloc(n * sizeof(int *));
-    if (matrix == NULL) {
-        printf("Memory allocation failed\n");
-        exit(1);
-    }
-
-    // Copy the addresses of the rows from arr to matrix
-    for (int i = 0; i < n; i++) {
-        matrix[i] = arr[i];
-    }
-
+    for (int i = 0; i < n; i++) 
+        for (int j = 0; j < n; j++) 
+            matrix[i][j] = 0;
+        
     return matrix;
 }
 
