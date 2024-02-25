@@ -1,9 +1,9 @@
-#include "utils.h"
-#include "graph.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+#include "utils.h"
+#include "graph.h"
 
 #define MIN_VERTEX_AMOUNT 0
 #define MAX_VERTEX_AMOUNT 100
@@ -23,7 +23,7 @@ struct Graph* create_graph(int v)
 
     struct Graph* graph = malloc(sizeof(struct Graph));
 
-    graph->vertices_amount = v;
+    graph->vertex_amount = v;
     graph->relations = create_matrix(v);
     
     return graph;
@@ -31,7 +31,7 @@ struct Graph* create_graph(int v)
 
 void graph_add_relation(struct Graph* graph, int vertex, int relation)
 {
-    int a = graph->vertices_amount;
+    int a = graph->vertex_amount;
     int** vertices = graph->relations;
 
     if (is_relation_valid(vertex, a) && is_relation_valid(relation, a))
@@ -46,9 +46,22 @@ void graph_add_relation(struct Graph* graph, int vertex, int relation)
     exit(1);
 }
 
+void graph_display_relations(struct Graph* graph)
+{
+    int va = graph->vertex_amount;
+    int** relations = graph->relations;
+
+     for (int i = 0; i < va; i++) {
+        for (int j = 0; j < va; j++) {
+            printf("%d ",  *( *(relations + i) + j));
+        }
+        printf("\n");
+    }
+}
+
 void graph_delete(struct Graph* graph)
 {
     // clear heap after using the `malloc` to prevent memory leaks
-    delete_matrix(graph->relations, graph->vertices_amount);
+    delete_matrix(graph->relations, graph->vertex_amount);
     free(graph);
 }

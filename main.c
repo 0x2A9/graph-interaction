@@ -1,26 +1,22 @@
-#include "graph.h"
-#include "utils.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "graph.h"
+#include "utils.h"
+#include "coloring.h"
+
 int main(void)
 {
-    int va = 7;
-    struct Graph* graph = create_graph(va);
-
-    printf("%d\n", graph->vertices_amount);
-
-    int **r = graph->relations;
+    struct Graph* graph = create_graph(7);
 
     graph_add_relation(graph, 5, 3);
+    graph_add_relation(graph, 4, 4);
+    graph_add_relation(graph, 1, 3);
 
-    for (int i = 0; i < va; i++) {
-        for (int j = 0; j < va; j++) {
-            printf("%d ",  *( *(r + i) + j));
-        }
-        printf("\n");
-    }
+    int* coloring = process_coloring(graph, 4);
+
+    graph_display_relations(graph);
+    display_coloring(coloring, graph->vertex_amount);
 
     graph_delete(graph);
 }
